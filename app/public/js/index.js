@@ -1,12 +1,21 @@
-
 const Offer = {
-  data() {
-    return {
-      foo: 0,
-      msg: "D&S is my fav",
-      list: ["red", "green", "blues"]
-    }
-  }
-}
+data (){
+  return {
+    person: {},
 
-Vue.createApp(Offer).mount('#offerApp');
+}
+},
+
+created() {
+        fetch('https://randomuser.me/api')
+        .then( response => response.json())
+        .then((responseJson) => {
+            console.log(responseJson);
+            this.person = responseJson.results[0]
+        })
+        .catch( err => {
+            console.error(err)
+        })
+  }
+  }
+  Vue.createApp(Offer).mount('#offerApp');
