@@ -6,13 +6,12 @@
 
   <link rel="stylesheet" href="css/style.css">
   <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ho+j7jyWK8fNQe+A12Hb8AhRq26LrZ/JpcUGGOn+Y7RsweNrtN/tE3MoK7ZeZDyx" crossorigin="anonymous"></script>
-
-
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ho+j7jyWK8fNQe+A12Hb8AhRq26LrZ/JpcUGGOn+Y7RsweNrtN/tE3MoK7ZeZDyx" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ho+j7jyWK8fNQe+A12Hb8AhRq26LrZ/JpcUGGOn+Y7RsweNrtN/tE3MoK7ZeZDyx" crossorigin="anonymous"></script>
+  <script src="https://unpkg.com/dayjs@1.8.21/dayjs.min.js"></script>
 </head>
 <body>
 <header>
-          <!-- Breadcrumb -->
           <nav aria-label="breadcrumb" class="main-breadcrumb">
             <ol class="breadcrumb">
               <li class="breadcrumb-item"><a href="index.html"><b>Home</b></a></li>
@@ -20,13 +19,11 @@
               <li class="breadcrumb-item"><a href="info.html"><b>Book Information</b></a></li>
             </ol>
           </nav>
-          <!-- /Breadcrumb -->
-    
 </header>
 
 
 <!--obtained from bootstap -->
-<table id="taskTable" class="table">
+<table id="books" class="table">
   <thead>
     <tr>
       <th scope="col">#</th>
@@ -39,43 +36,16 @@
     </tr>
   </thead>
   <tbody>
-    <tr>
-      <th scope="row">1</th>
-      <td>Feed</td>
-      <td>Mira Grant</td>
-      <td>2020</td>
-      <td>Grant Publisher</td>
-      <td>320</td>
-      <td>$19.99</td>
+    <tr v-for="book in books">
+      <th scope="row">{{book.id}}</th>
+      <td>{{book.title}}</td>
+      <td>{{book.author}}</td>
+      <td>{{book.publisher}}</td>
+      <td>{{book.yearPublished}}</td>
+      <td>{{book.PageCount}}</td>
+      <td>{{book.MSRP}}</td>
+    </tr>
 
-    </tr>
-    <tr>
-      <th scope="row">2</th>
-      <td>Tender at the Bone: Growing Up at the Table</td>
-      <td>Ruth Reichl</td>
-      <td>1998</td>
-      <td>Reuchl Publisher</td>
-      <td>552</td>
-      <td>$19.98</td>
-    </tr>
-    <tr>
-      <th scope="row">3</th>
-      <td>The Constant Princess</td>
-      <td>Philippa Gregory</td>
-      <td>2005</td>
-      <td>Grant Publisher</td>
-      <td>390</td>
-      <td>$17.89</td>
-    </tr>
-    <tr>
-      <th scope="row">4</th>
-      <td>The Wandering Fire</td>
-      <td>Guy Gavriel Kay</td>
-      <td>1986</td>
-      <td>Kay Publisher</td>
-      <td>850</td>
-      <td>$29.58</td>
-    </tr>
   </tbody>
 </table>
 <br>
@@ -87,52 +57,56 @@
 <hr>
 
 <h2> Add Books Below: </h2>
-<div class="input-group mb-3">
-  <input type="text" class="form-control" placeholder="Book Title" aria-label="Recipient's username" aria-describedby="button-addon2">
-  <div class="input-group-append">
-  </div>
-</div>
+<form v-on:submit.prevent="postNewBooks">
 
-<div class="input-group mb-3">
-  <input type="text" class="form-control" placeholder="Author(s)" aria-label="Recipient's username" aria-describedby="button-addon2">
-  <div class="input-group-append">
-  </div>
-</div>
+      <div class="mb-3">
+          <label for="title" class="form-label">Title</label>
+          <input type="text" v-model="booksForm.title"
+          class="form-control" id="title">
+      </div>
 
-<div class="input-group mb-3">
-  <input type="text" class="form-control" placeholder="Year Published" aria-label="Recipient's username" aria-describedby="button-addon2">
-  <div class="input-group-append">
-  </div>
-</div>
+      <div class="mb-3">
+          <label for="author" class="form-label">Author</label>
+          <input type="text" v-model="booksForm.author" class="form-control" id="author">
+      </div>
 
-<div class="input-group mb-3">
-  <input type="text" class="form-control" placeholder="Publisher" aria-label="Recipient's username" aria-describedby="button-addon2">
-  <div class="input-group-append">
-  </div>
-</div>
+      <div class="mb-3">
+          <label for="bonus" class="form-label">Year Published</label>
+          <input type="number" v-model="offerForm.yearPublished" class="form-control" id="yearPublished">
+      </div>
 
-<div class="input-group mb-3">
-  <input type="text" class="form-control" placeholder="Page Count" aria-label="Recipient's username" aria-describedby="button-addon2">
-  <div class="input-group-append">
-  </div>
-</div>
+      <div class="mb-3">
+          <label for="publisher" class="form-label">Publisher</label>
+          <input type="text" v-model="offerForm.publisher" class="form-control" id="publisher">
+      </div>
 
-<div class="input-group mb-3">
-  <input type="text" class="form-control" placeholder="MSRP" aria-label="Recipient's username" aria-describedby="button-addon2">
-  <div class="input-group-append">
-  </div>
-</div>
-<button class="btn btn-outline-secondary" type="button" id="button-addon2">Add Book</button>
+      <div class="mb-3">
+        <label for="PageCount" class="form-label">Page Count</label>
+        <input type="number" v-model="booksForm.PageCount" class="form-control" id="PageCount">
+    </div>
+
+    <div class="mb-3">
+      <label for="MSRP" class="form-label">MSRP</label>
+      <input type="number" v-model="booksForm.MSRP" class="form-control" id="MSRP">
+    </div>
+
+  <button type="submit" class="btn btn-primary">Submit</button>
+
+</form>
 </body>
 <br>
 <hr>
 <!-- Table sort plug in from: http://tristen.ca/tablesort/demo/ -->
       <script src="js/tablesort.min"></script>
       <script>
-          new Tablesort(document.getElementById('taskTable'));
+          new Tablesort(document.getElementById('books'));
       </script>
+      <script src="https://unpkg.com/vue@next"></script>
+      <script src="js/books.js"></script>
 <footer>
   <p>Book data from: https://randomlistgenerator.com/books</p>
   <p>Book Image link: https://images.gr-assets.com/books/1408500437m/7094569.jpg</p>
 </footer>
 </html>
+
+

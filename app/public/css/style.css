@@ -79,3 +79,14 @@ th[role=columnheader]:not(.no-sort):hover:after {
 	visibility: visible;
 	opacity: 1;
 }
+
+.student {
+    margin: 10px 2px;
+    padding: 2px;
+    border: 1ps solid gray;
+    background-color: antiquewhite;
+}
+
+.userName {
+    font-weight: bold;
+}
