@@ -1,11 +1,12 @@
 const Offer = {
 data (){
   return {
-    "students": {},
+    "students": [],
     "selectedStudent": null,
-    "offers": {}
-
-}
+    "offers": [],
+    "booksForm": {},
+    "selectedBook": null
+    }
 },
 
 computed: {
@@ -51,8 +52,6 @@ methods: {
     })
 }
 },
-
-
     // postNewBooks(evt) {
     //     this.BooksForm.id = this.selectedBooks.id;        
     //     console.log("Posting:", this.BooksForm);
@@ -74,7 +73,13 @@ methods: {
     //         // reset the form
     //         this.booksForm = {};
     //       });
-    //   }
+    //   },
+    //   postEditOffer(evt) {
+    //     this.offerForm.id = this.selectedOffer.id;
+    //     this.offerForm.studentId = this.selectedStudent.id;        
+        
+    //     console.log("Editing!", this.offerForm);
+
 
 
 methods: {
@@ -90,9 +95,21 @@ methods: {
         })
   }
   },
+
+// handleEdit(o) {
+//     this.selectedBook= o;
+//     this.bookForm= this.selectedBook;
+  
+// },
+
+// resetbookForm() {
+//     this.selectedBook= null;
+//     this.bookForm= {};
+// },
+
 created() {
     this.fetchStudentData();
-    }
 }
+},
 
-Vue.createApp(Offer).mount('#offerApp');
+Vue.createApp(Books).mount('#books');

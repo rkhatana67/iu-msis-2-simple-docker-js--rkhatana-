@@ -23,7 +23,8 @@
 
 
 <!--obtained from bootstap -->
-<table id="books" class="table">
+<div id="books">
+<table class="table" id="book1">
   <thead>
     <tr>
       <th scope="col">#</th>
@@ -44,21 +45,19 @@
       <td>{{book.yearPublished}}</td>
       <td>{{book.PageCount}}</td>
       <td>{{book.MSRP}}</td>
+      <td></td>
+      <td>
+        <!-- <button type="button" v-on:click="handleEditBook" class="btn btn-outline-secondary btn-sm">Edit</button> -->
+        <button type="button" class="btn btn-outline-secondary">Delete</button>
+      </td>
     </tr>
-
   </tbody>
 </table>
-<br>
-<hr>
-<p>Customer Reccomended Book: </p>
-<a href="https://images.gr-assets.com/books/1408500437m/7094569.jpg"> <img src="https://images.gr-assets.com/books/1408500437m/7094569.jpg" alt="Admin"  width="150"> </a>
 
-<br>
-<hr>
+<!-- {{selectedBook === null ? "Add " : "Edit " }} -->
+<h3>Add Book</h3>
 
-<h2> Add Books Below: </h2>
-<form v-on:submit.prevent="postNewBooks">
-
+      <form v-on:submit.prevent="postNewBooks">
       <div class="mb-3">
           <label for="title" class="form-label">Title</label>
           <input type="text" v-model="booksForm.title"
@@ -72,12 +71,12 @@
 
       <div class="mb-3">
           <label for="bonus" class="form-label">Year Published</label>
-          <input type="number" v-model="offerForm.yearPublished" class="form-control" id="yearPublished">
+          <input type="number" v-model="booksForm.yearPublished" class="form-control" id="yearPublished">
       </div>
 
       <div class="mb-3">
           <label for="publisher" class="form-label">Publisher</label>
-          <input type="text" v-model="offerForm.publisher" class="form-control" id="publisher">
+          <input type="text" v-model="booksForm.publisher" class="form-control" id="publisher">
       </div>
 
       <div class="mb-3">
@@ -89,23 +88,41 @@
       <label for="MSRP" class="form-label">MSRP</label>
       <input type="number" v-model="booksForm.MSRP" class="form-control" id="MSRP">
     </div>
+  
+    <!-- <{{ selectedBook === null ? "Add " : "Edit " }} ? -->
 
-  <button type="submit" class="btn btn-primary">Submit</button>
+    <button type="submit" class="btn btn-primary"> Add Book</button>
+    <button type="button" class="btn btn-outline-secondary" 
+       v-if="selectedBook"
+       v-on:click="handleResetEdit">Cancel Edit</button>
+  </form>
 
-</form>
+      <!-- <button type="submit" class="btn btn-primary">Add Books</button>
+      <div class="noOffers" v-if="! offers.length">
+        <h3>No offers. 😥</h3>
+      </div> -->
+    </div>
+  </div>
+  <!-- Table sort plug in from: http://tristen.ca/tablesort/demo/ -->
+  <script src="js/tablesort.min.js"></script>
+  <script>
+      new Tablesort(document.getElementById('book1'));
+  </script>
+  <script src="https://unpkg.com/vue@next"></script>
+  <script src="js/books.js"></script>
 </body>
 <br>
 <hr>
-<!-- Table sort plug in from: http://tristen.ca/tablesort/demo/ -->
-      <script src="js/tablesort.min"></script>
-      <script>
-          new Tablesort(document.getElementById('books'));
-      </script>
-      <script src="https://unpkg.com/vue@next"></script>
-      <script src="js/books.js"></script>
+
 <footer>
   <p>Book data from: https://randomlistgenerator.com/books</p>
   <p>Book Image link: https://images.gr-assets.com/books/1408500437m/7094569.jpg</p>
+  <hr>
+<p>Customer Reccomended Book: </p>
+<a href="https://images.gr-assets.com/books/1408500437m/7094569.jpg"> <img src="https://images.gr-assets.com/books/1408500437m/7094569.jpg" alt="Admin"  width="150"> </a>
+
+<br>
+<hr>
 </footer>
 </html>
 
